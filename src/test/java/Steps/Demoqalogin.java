@@ -7,20 +7,22 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class Demoqalogin {
-	static WebDriver driver;
+	WebDriver driver;
+
+	public Demoqalogin(Commom Commom) {
+		this.driver = Commom.getDriver();
+	}
 
 	@Given("I am on Demoqa login page")
 	public void i_am_on_demoqa_login_page() {
-		driver = new ChromeDriver();
 		driver.get("https://demoqa.com/login");
-		driver.manage().window().maximize();
 	}
 
 	@When("I click on NewUser")
@@ -73,5 +75,46 @@ public class Demoqalogin {
 	public void i_click_on_register() {
 		WebElement registerr = driver.findElement(By.id("register"));
 		registerr.click();
+	}
+
+	@Given("I am on Registration Page")
+	public void i_am_on_registration_page() {
+		driver.get("https://demoqa.com/register");
+		// System.out.println("Hi");
+	}
+
+	@When("I click on Book Store")
+	public void i_click_on_book_store() {
+		WebElement Nested = driver.findElement(By.xpath(
+				"//div[text()='Book Store Application']/../../..//div[@class='element-list collapse show']//li[@id='item-2']"));
+		System.out.println(Nested.getText());
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].click()", Nested);
+	}
+
+	@Then("I get navigate to book search page")
+	public void i_get_navigate_to_book_search_page() {
+		// System.out.println("Hi");
+		String expurl = "https://demoqa.com/books";
+		String acturl = driver.getCurrentUrl();
+		if (!expurl.equals(acturl)) {
+			fail("The result wasn't expected brooooo");
+		}
+	}
+
+	@Given("I am at Book search page")
+	public void i_am_at_book_search_page() {
+		driver.get("https://demoqa.com/books");
+		System.out.println("let's search for a book");
+	}
+
+	@When("I enter {string} in the search field")
+	public void i_enter_in_the_search_field(String string) {
+		driver.findElement(By.cssSelector("input#searchBox")).sendKeys("Git Pocket Guide");
+	}
+
+	@Then("I get the results")
+	public void i_get_the_results() {
+		System.out.println("verifyBookIsAvailable");
 	}
 }
