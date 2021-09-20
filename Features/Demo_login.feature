@@ -6,6 +6,20 @@ Scenario: Login search button
 
 Given I am on Demoqa login page
 When I click on NewUser
-Then I get navigate to Registeration Page
+Then I get navigate to Registeration Page 
 
+@P2
+Scenario: User registration page 
+
+Given I am on Demoqa registration page
+When I enter "Yogendra" in the "First Name" field
+Then I click on Register
+
+@P3
+Scenario: Book search Page
+
+Given I am on Registration Page
+When I click on Book Store
+Then I get navigate to book search page 
+ 
 
