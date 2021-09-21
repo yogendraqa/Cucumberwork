@@ -10,4 +10,4 @@ Feature: Search for book
   Scenario: Search for any book
     Given I am at Book search page
     When I enter "Yogendra" in the search field
-    Then I get the results
+    Then I get the kbweqjifb
