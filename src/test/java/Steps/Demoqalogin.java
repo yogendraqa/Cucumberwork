@@ -16,8 +16,8 @@ import io.cucumber.java.en.When;
 public class Demoqalogin {
 	WebDriver driver;
 
-	public Demoqalogin(Commom Commom) {
-		this.driver = Commom.getDriver();
+	public Demoqalogin(Commom commom) {
+		this.driver = commom.getDriver();
 	}
 
 	@Given("I am on Demoqa login page")
@@ -49,17 +49,19 @@ public class Demoqalogin {
 		System.out.println("I am on Demoqa registration page");
 	}
 
-	@When("I enter {string} in the {string} field")
-	public void i_enter_in_the_field(String string, String string2) throws InterruptedException {
+	@When("I enter {string} and {string} and {string} and {string} field")
+	public void i_enter_and_and_and_field(String string, String string2, String string3, String string4)
+			throws InterruptedException {
+		driver.get("https://demoqa.com/register");
 		// WebDriver driver = this.driver;
 		WebElement firstName = driver.findElement(By.cssSelector("#firstname"));
 		WebElement lastName = driver.findElement(By.cssSelector("#lastname"));
 		WebElement Username = driver.findElement(By.cssSelector("#userName"));
 		WebElement password = driver.findElement(By.cssSelector("#password"));
-		firstName.sendKeys("Yogendra");
-		lastName.sendKeys("Vashishtha");
-		Username.sendKeys("yogi");
-		password.sendKeys("yogi1998");
+		firstName.sendKeys(string);
+		lastName.sendKeys(string2);
+		Username.sendKeys(string3);
+		password.sendKeys(string4);
 		Thread.sleep(5000);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,250)", "");
@@ -100,21 +102,7 @@ public class Demoqalogin {
 		if (!expurl.equals(acturl)) {
 			fail("The result wasn't expected brooooo");
 		}
+
 	}
 
-	@Given("I am at Book search page")
-	public void i_am_at_book_search_page() {
-		driver.get("https://demoqa.com/books");
-		System.out.println("let's search for a book");
-	}
-
-	@When("I enter {string} in the search field")
-	public void i_enter_in_the_search_field(String string) {
-		driver.findElement(By.cssSelector("input#searchBox")).sendKeys("Git Pocket Guide");
-	}
-
-	@Then("I get the results")
-	public void i_get_the_results() {
-		System.out.println("verifyBookIsAvailable");
-	}
 }

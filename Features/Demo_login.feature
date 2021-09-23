@@ -12,6 +12,7 @@ Then I get navigate to Registeration Page
 Scenario: User registration page 
 
 Given I am on Demoqa registration page
-When I enter "Yogendra" in the "First Name" field
+When I enter "Yogendra" and "Vashishtha" and "yogi" and "yogi1998" field
 Then I click on Register
+
 
