@@ -18,8 +18,8 @@ public class Commom {
 	
 	@After
 	public void Teardown() throws InterruptedException {
-		//driver.quit();
-		//Thread.sleep(20000);
+		driver.quit();
+		Thread.sleep(5000);
 	}
 	
 	public WebDriver getDriver() {
