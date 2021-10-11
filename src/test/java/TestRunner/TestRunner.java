@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(features = { "Features" }, glue = { "Steps" },
 
 		monochrome = true,// it will give you a better format in output
-		tags = "@P124"
+		tags = "@P131"
 // plugin = {"pretty", "html:Report2"},
         //dryRun = true //it will give you the missing step definition of features and
 // their scenarios
