@@ -5,10 +5,12 @@ import java.io.File;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import junit.framework.Assert;
 
 public class MyHerokuapp {
 	WebDriver driver;
@@ -111,9 +113,78 @@ public class MyHerokuapp {
 	    System.out.println("I am on entry ad page");
 	    driver.findElement(By.cssSelector("a[id=\"restart-ad\"]")).click();
 	    WebElement Frame = driver.findElement(By.cssSelector("div[class=\"modal\"]"));
-	    //driver.switchTo().frame(Frame);
+	    driver.switchTo().frame(Frame);
 	    //driver.switchTo().alert().dismiss();
 	    driver.findElement(By.xpath("//*[@id=\"modal\"]/div[2]/div[3]/p")).click();
 	    //driver.switchTo().defaultContent();
+	}
+	
+	@When("I click on Frames")
+	public void i_click_on_frames() {
+	    driver.findElement(By.cssSelector("a[href=\"/frames\"]")).click();
+	}
+	@Then("I get navigated to Frame page")
+	public void i_get_navigated_to_frame_page() {
+	    System.out.println("I get navigated to Frame page");
+	}
+	@Then("I click on Nested frames")
+	public void i_click_on_nested_frames() {
+	   driver.findElement(By.cssSelector("a[href=\"/nested_frames\"]")).click();
+	}
+	@SuppressWarnings("deprecation")
+	@Then("Nested frames is automated successfully")
+	public void nested_frames_is_automated_successfully() {
+	    driver.switchTo().frame(driver.findElement(By.cssSelector("frame[src=\"/frame_top\"]")));
+	    driver.switchTo().frame(driver.findElement(By.cssSelector("frame[src=\"/frame_left\"]")));
+	    WebElement leftframe = driver.findElement(By.cssSelector("html>body"));
+	    Assert.assertEquals(leftframe.getText(),"LEFT");
+	    System.out.println("Left frame is automated");
+	    driver.navigate().back();
+	   
+	}
+	@Then("I click on iFrames")
+	public void i_click_on_i_frames() {
+	    driver.findElement(By.cssSelector("a[href=\"/iframe\"]")).click();
+	}
+	@Then("iFrames is automated successfully")
+	public void i_frames_is_automated_successfully() {
+	    System.out.println("I am on iFrames");
+	    driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/div[1]/div[1]/div[1]/button[2]/span")).click();
+	}
+	
+	@When("I click on Hovers")
+	public void i_click_on_hovers() {
+	    driver.findElement(By.cssSelector("a[href=\"/hovers\"]")).click();
+	}
+	@Then("I get Navigated to Hover page")
+	public void i_get_navigated_to_hover_page() {
+	   System.out.println("I am on Hover page");
+	}
+	@Then("I hover on User2 and click on view profile")
+	public void i_hover_on_user2_and_click_on_view_profile() {
+		Actions actions = new Actions(driver);
+		WebElement middleimg = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/img"));
+		actions.moveToElement(middleimg).perform();
+		
+		WebElement userprofile = driver.findElement(By.cssSelector("a[href=\"/users/2\"]"));
+		actions.moveToElement(userprofile).perform();
+		userprofile.click();
+	}
+	
+	@When("I click on Key Presses")
+	public void i_click_on_key_presses() {
+	    driver.findElement(By.cssSelector("a[href=\"/key_presses\"]")).click();
+	}
+	@Then("I get navigated to Key press page")
+	public void i_get_navigated_to_key_press_page() {
+	    System.out.println("I am on key presses page");
+	}
+	@Then("I input multiple keys and can see what i inputted")
+	public void i_input_multiple_keys_and_can_see_what_i_inputted() {
+	    WebElement KeyPresses = driver.findElement(By.cssSelector("#target"));
+	    KeyPresses.sendKeys("a");
+	    WebElement result = driver.findElement(By.cssSelector("#result"));
+	    String R = result.getText();
+	    System.out.println(R);
 	}
 }
